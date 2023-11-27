@@ -112,15 +112,15 @@ function getPasswordOptions() {
   var specialChar = confirm("Please click OK for the password to contain special character. Otherwise click cancel.");
 
   // code validates at least one character type should be selected
-  var mininimumCharacterType = lowerCaseChar + upperCaseChar + numberChar + specialChar > 0
+  var askAgain = (lowerCaseChar == false && upperCaseChar == false && numberChar == false && specialChar == false)
 
-  while (!mininimumCharacterType) { 
+  while (askAgain) { 
    alert("Please choose at least one character type.")
    var lowerCaseChar = confirm("Please click OK for the password to contain lowercase. Otherwise click cancel.");
    var upperCaseChar = confirm("Please click OK for the password to contain uppercase. Otherwise click cancel.");
    var numberChar = confirm("Please click OK for the password to contain number. Otherwise click cancel.");
    var specialChar = confirm("Please click OK for the password to contain special character. Otherwise click cancel.");
-   var mininimumCharacterType = lowerCaseChar + upperCaseChar + numberChar + specialChar > 0
+  //  var askAgain = (lowerCaseChar == false && upperCaseChar == false && numberChar == false && specialChar == false)
   }
 
   passwordCriteria = {
@@ -130,24 +130,51 @@ function getPasswordOptions() {
   numberChar : numberChar,
   specialChar : specialChar,
   }
-
   return passwordCriteria
-
 }
 
-
-passwordCriteria = getPasswordOptions()
-console.log(passwordCriteria)
-
-
+// ====To get a random element===============================================
 // Function for getting a random element from an array
-function getRandom(arr) {
-
+function getRandom(array) {
+  var randomElement = array[Math.floor(Math.random()*array.length)];
+  return randomElement
 }
 
 // Function to generate password with user input
 function generatePassword() {
+  passwordCriteria = getPasswordOptions()
+  var password = ""
+  allCharaters = []
 
+  if (passwordCriteria.lowerCaseChar == true) {
+    allCharaters = allCharaters.concat(lowerCasedCharacters)
+    password = password + getRandom(array = lowerCasedCharacters)
+  }
+  
+  if (passwordCriteria.upperCaseChar == true) {
+   allCharaters = allCharaters.concat(upperCasedCharacters)  
+   password = password + getRandom(array = upperCasedCharacters)
+  }
+  
+   if (passwordCriteria.numberChar == true) {
+    allCharaters = allCharaters.concat(numericCharacters) 
+    password = password + getRandom(array = numericCharacters)
+  }
+  
+   if (passwordCriteria.specialChar == true) {
+    allCharaters = allCharaters.concat(specialCharacters)
+    password = password + getRandom(array = specialCharacters)
+  
+  }
+}
+
+//  console.log((passwordCriteria.length - password.length))
+ var numberOfAdditionalCharacterNeeded = passwordCriteria.length - password.length;
+ for ( i = 0; i < numberOfAdditionalCharacterNeeded; i++){
+  password = password + getRandom(array = allCharaters)
+
+// console.log(password)
+  return password
 }
 
 // Get references to the #generate element
