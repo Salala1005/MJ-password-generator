@@ -88,6 +88,7 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+//=====To get password options================================================
 function getPasswordOptions() {
 
   // check password length
@@ -120,7 +121,7 @@ function getPasswordOptions() {
    var upperCaseChar = confirm("Please click OK for the password to contain uppercase. Otherwise click cancel.");
    var numberChar = confirm("Please click OK for the password to contain number. Otherwise click cancel.");
    var specialChar = confirm("Please click OK for the password to contain special character. Otherwise click cancel.");
-  //  var askAgain = (lowerCaseChar == false && upperCaseChar == false && numberChar == false && specialChar == false)
+   askAgain = (lowerCaseChar == false && upperCaseChar == false && numberChar == false && specialChar == false);
   }
 
   passwordCriteria = {
@@ -133,6 +134,7 @@ function getPasswordOptions() {
   return passwordCriteria
 }
 
+
 // ====To get a random element===============================================
 // Function for getting a random element from an array
 function getRandom(array) {
@@ -143,35 +145,36 @@ function getRandom(array) {
 // Function to generate password with user input
 function generatePassword() {
   passwordCriteria = getPasswordOptions()
-  var password = ""
-  allCharaters = []
+    var password = ""
+    allCharaters = []
 
-  if (passwordCriteria.lowerCaseChar == true) {
-    allCharaters = allCharaters.concat(lowerCasedCharacters)
-    password = password + getRandom(array = lowerCasedCharacters)
-  }
   
-  if (passwordCriteria.upperCaseChar == true) {
-   allCharaters = allCharaters.concat(upperCasedCharacters)  
-   password = password + getRandom(array = upperCasedCharacters)
-  }
-  
-   if (passwordCriteria.numberChar == true) {
-    allCharaters = allCharaters.concat(numericCharacters) 
-    password = password + getRandom(array = numericCharacters)
-  }
-  
-   if (passwordCriteria.specialChar == true) {
-    allCharaters = allCharaters.concat(specialCharacters)
-    password = password + getRandom(array = specialCharacters)
-  
-  }
+ if (passwordCriteria.lowerCaseChar == true) {
+  allCharaters = allCharaters.concat(lowerCasedCharacters)
+  password = password + getRandom(array = lowerCasedCharacters)
+}
+
+if (passwordCriteria.upperCaseChar == true) {
+ allCharaters = allCharaters.concat(upperCasedCharacters)  
+ password = password + getRandom(array = upperCasedCharacters)
+}
+
+ if (passwordCriteria.numberChar == true) {
+  allCharaters = allCharaters.concat(numericCharacters) 
+  password = password + getRandom(array = numericCharacters)
+}
+
+ if (passwordCriteria.specialChar == true) {
+  allCharaters = allCharaters.concat(specialCharacters)
+  password = password + getRandom(array = specialCharacters)
+
 }
 
 //  console.log((passwordCriteria.length - password.length))
  var numberOfAdditionalCharacterNeeded = passwordCriteria.length - password.length;
  for ( i = 0; i < numberOfAdditionalCharacterNeeded; i++){
   password = password + getRandom(array = allCharaters)
+}
 
 // console.log(password)
   return password
@@ -184,7 +187,6 @@ var generateBtn = document.querySelector('#generate');
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
-
   passwordText.value = password;
 }
 
